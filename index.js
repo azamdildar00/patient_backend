@@ -1,22 +1,3 @@
-// const express = require('express');
-// const app = express();
-// const cors = require('cors')
-
-// app.use(cors());
-// app.use(express.json())
-
-// app.get('/', (req, res) => {
-//     res.render('Hello world')
-// })
-
-// app.listen(8000, (err) => {
-//     if(err){
-//         console.log(err);
-//     } else {
-//         console.log('server is running...!!!');
-//     }
-// })
-
 const express = require('express')
 const app = express()
 const cors = require('cors')
