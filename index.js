@@ -38,7 +38,7 @@ const server = async () => {
     const db = await dbPromise;
     await db.migrate();
 
-    app.listen(8080, () => {
+    app.listen(process.env.PORT || 8080, () => {
         console.log('Server is running')
     })
 }
