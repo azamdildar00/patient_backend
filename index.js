@@ -20,16 +20,13 @@ app.use(express.json())
 app.get('/patient', async (req, res) => {
     const db = await dbPromise;
     const name = req.query.name;
-    console.log(name)
     const data = await db.all('SELECT * FROM patient WHERE name = ?;', name)
-    console.log(data);
     res.json(data)
 })
 
 app.post('/patient', async (req, res) => {
     const db = await dbPromise;
     const data = req.body.patient;
-    console.log(data);
     await db.run('INSERT INTO patient (name, disease) VALUES (?,?)', data.name, data.disease);
     res.json({"satus" : "OK"});
 })
@@ -37,7 +34,6 @@ app.post('/patient', async (req, res) => {
 app.get('/treatment', async (req, res) => {
     const db = await dbPromise;
     const type = req.query.type;
-    console.log(type)
     const data = await db.all('SELECT * FROM treatment WHERE treatment.disease = ?', type)
     res.json(data);
 })
@@ -45,9 +41,7 @@ app.get('/treatment', async (req, res) => {
 app.post('/treatment', async (req, res) => {
     const db = await dbPromise;
     const data = req.body.treatment;
-    console.log(data)
     await db.run('INSERT INTO treatment (patient_name, disease, prescription) VALUES (?,?,?)', data.patient_name, data.disease,data.prescription)
-    console.log(req.query);
     res.json({"satus" : "OK"})
 })
 
