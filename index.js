@@ -28,7 +28,7 @@ app.post('/patient', async (req, res) => {
     const db = await dbPromise;
     const data = req.body;
     console.log(data);
-    await db.run('INSERT INTO patient (name, category) VALUES (?,?)', data.name, data.category);
+    await db.run('INSERT INTO patient (name, disease) VALUES (?,?)', data.name, data.category);
     res.json({"satus" : "OK"});
 })
 
@@ -36,14 +36,14 @@ app.get('/treatment', async (req, res) => {
     const db = await dbPromise;
     const type = req.query.type;
     console.log(type)
-    const data = await db.all('SELECT * FROM patient WHERE patient.category = ?', type)
+    const data = await db.all('SELECT * FROM treatment WHERE treatment.disease = ?', type)
     res.json(data);
 })
 
 app.post('/treatment', async (req, res) => {
     const db = await dbPromise;
     const data = req.body;
-    await db.run('INSERT INTO treatment (name) VALUES (?)', data.name)
+    await db.run('INSERT INTO treatment (patient_name, disease, prescription) VALUES (?,?,?)', data.patient_name, data.disease,data.prescription)
     console.log(req.query);
     res.json({"satus" : "OK"})
 })

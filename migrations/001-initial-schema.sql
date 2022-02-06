@@ -3,12 +3,14 @@
 CREATE TABLE patient (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    category TEXT
+    disease TEXT
 );
 
 CREATE TABLE treatment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    patient_name TEXT,
+    disease TEXT,
+    prescription BOOLEAN
 );
 
 -- Down
