@@ -34,6 +34,7 @@ app.post('/patient', async (req, res) => {
 app.get('/treatment', async (req, res) => {
     const db = await dbPromise;
     const type = req.query.type;
+    await db.run('DELETE FROM treatment;');
     const data = await db.all('SELECT * FROM treatment WHERE treatment.disease = ?', type)
     res.json(data);
 })
