@@ -19,16 +19,18 @@ app.use(express.json())
 
 app.get('/patient', async (req, res) => {
     const db = await dbPromise;
-    const data = await db.all('SELECT * FROM patient;')
+    const name = req.query.name;
+    console.log(name)
+    const data = await db.all('SELECT * FROM patient WHERE name = ?;', name)
     console.log(data);
     res.json(data)
 })
 
 app.post('/patient', async (req, res) => {
     const db = await dbPromise;
-    const data = req.body;
+    const data = req.body.patient;
     console.log(data);
-    await db.run('INSERT INTO patient (name, disease) VALUES (?,?)', data.name, data.category);
+    await db.run('INSERT INTO patient (name, disease) VALUES (?,?)', data.name, data.disease);
     res.json({"satus" : "OK"});
 })
 
@@ -42,7 +44,8 @@ app.get('/treatment', async (req, res) => {
 
 app.post('/treatment', async (req, res) => {
     const db = await dbPromise;
-    const data = req.body;
+    const data = req.body.treatment;
+    console.log(data)
     await db.run('INSERT INTO treatment (patient_name, disease, prescription) VALUES (?,?,?)', data.patient_name, data.disease,data.prescription)
     console.log(req.query);
     res.json({"satus" : "OK"})
